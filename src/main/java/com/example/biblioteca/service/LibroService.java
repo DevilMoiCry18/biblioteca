@@ -14,4 +14,8 @@ public class LibroService {
         this.repo= repo;
     }
 
+    public static void findAll(){
+
+    }
+
 }
