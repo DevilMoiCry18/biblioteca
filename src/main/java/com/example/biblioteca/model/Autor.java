@@ -5,16 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.Date;
-
 @Entity
-public class Libro {
+public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String titulo;
-    private String isbn;
-    private Date fechaPublicacion;
-    private String genero;
+    private String nombre;
+    private String nacionalidad;
 }
