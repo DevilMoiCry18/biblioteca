@@ -1,8 +1,11 @@
 package com.example.biblioteca.service;
 
+import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.repository.LibroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LibroService {
@@ -14,8 +17,8 @@ public class LibroService {
         this.repo= repo;
     }
 
-    public static void findAll(){
-
+    public List<Libro> findAll() {
+        return repo.findAll();
     }
 
 }
