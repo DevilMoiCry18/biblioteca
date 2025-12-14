@@ -18,7 +18,7 @@ public class LibroController {
         this.libroService=libroService;
     }
 
-    @GetMapping("/libros")
+    @GetMapping
     public List<Libro> obtenerTodos() {
         return libroService.encontrarTodos();
     }
