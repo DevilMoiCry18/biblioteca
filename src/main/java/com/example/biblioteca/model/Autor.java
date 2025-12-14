@@ -10,8 +10,11 @@ public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     private String nombre;
+
+    public Autor(){}
 
     public Autor(String nombre) {
         this.nombre = nombre;
