@@ -17,7 +17,7 @@ public class LibroService {
         this.repo= repo;
     }
 
-    public List<Libro> findAll() {
+    public List<Libro> encontrarTodos() {
         return repo.findAll();
     }
 

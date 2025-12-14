@@ -13,16 +13,15 @@ import java.util.List;
 @RequestMapping("/api/bibliotecadb")
 public class LibroController {
 
-    private LibroService libroService;
+    private final LibroService libroService;
 
-    @Autowired
-    public void LibroService(LibroService libroService){
+    public LibroController(LibroService libroService){
         this.libroService=libroService;
     }
 
     @GetMapping("/libros")
     public List<Libro> obtenerTodos() {
-        return libroService.findAll();
+        return libroService.encontrarTodos();
     }
 
 }

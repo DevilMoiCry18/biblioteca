@@ -1,10 +1,7 @@
 package com.example.biblioteca.model;
 
 import com.example.biblioteca.service.LibroService;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -13,21 +10,24 @@ public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String titulo;
-    private String isbn;
-    private Date fechaPublicacion;
-    private String genero;
 
-    public Libro(long id, String titulo, String isbn, Date fechaPublicacion, String genero) {
-        this.id = id;
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
+
+    private boolean disponible;
+
+    public Libro(){}
+
+    public Libro(String titulo, Autor autor, boolean disponible) {
         this.titulo = titulo;
-        this.isbn = isbn;
-        this.fechaPublicacion = fechaPublicacion;
-        this.genero = genero;
+        this.autor = autor;
+        this.disponible = disponible;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -35,15 +35,11 @@ public class Libro {
         return titulo;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public Autor getAutor() {
+        return autor;
     }
 
-    public Date getFechaPublicacion() {
-        return fechaPublicacion;
-    }
-
-    public String getGenero() {
-        return genero;
+    public boolean isDisponible() {
+        return disponible;
     }
 }
