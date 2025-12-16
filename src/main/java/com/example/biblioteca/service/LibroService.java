@@ -30,4 +30,13 @@ public class LibroService {
         return repo.save(libro);
     }
 
+    public Libro actualizar(Long id, Libro libroActualizado) {
+        Libro libroExistente = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+        libroExistente.setTitulo(libroActualizado.getTitulo());
+        libroExistente.setAutor(libroActualizado.getAutor());
+        libroExistente.setDisponible(libroActualizado.isDisponible());
+        return repo.save(libroExistente);
+    }
+
 }
