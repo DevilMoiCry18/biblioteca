@@ -26,4 +26,8 @@ public class LibroService {
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
     }
 
+    public Libro guardar(Libro libro) {
+        return repo.save(libro);
+    }
+
 }
