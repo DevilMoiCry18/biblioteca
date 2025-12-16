@@ -21,4 +21,9 @@ public class LibroService {
         return repo.findAll();
     }
 
+    public Libro encontrarPorId(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+    }
+
 }
