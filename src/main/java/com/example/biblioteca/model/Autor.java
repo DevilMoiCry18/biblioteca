@@ -10,7 +10,21 @@ public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     private String nombre;
-    private String nacionalidad;
+
+    public Autor(){}
+
+    public Autor(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public long getId(){
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
