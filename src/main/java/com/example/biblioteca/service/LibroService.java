@@ -39,4 +39,11 @@ public class LibroService {
         return repo.save(libroExistente);
     }
 
+    public void eliminar(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Libro no encontrado");
+        }
+        repo.deleteById(id);
+    }
+
 }
