@@ -1,9 +1,6 @@
 package com.example.biblioteca.model;
 
-import com.example.biblioteca.service.LibroService;
 import jakarta.persistence.*;
-
-import java.util.Date;
 
 @Entity
 public class Libro {
@@ -25,6 +22,18 @@ public class Libro {
     public Libro(String titulo, Autor autor, boolean disponible) {
         this.titulo = titulo;
         this.autor = autor;
+        this.disponible = disponible;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
 
