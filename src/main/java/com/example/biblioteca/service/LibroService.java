@@ -12,9 +12,7 @@ public class LibroService {
 
     private final LibroRepository repo;
 
-    public LibroService(LibroRepository repo){
-        this.repo= repo;
-    }
+    public LibroService(LibroRepository repo){this.repo= repo;}
 
     public List<Libro> encontrarPorDisponible(boolean disponible){return repo.findByDisponible(disponible);}
 
@@ -22,9 +20,8 @@ public class LibroService {
 
     public List<Libro> encontrarPorAutorAndDisponible(String nombre, boolean disponible){return repo.findByAutorAndDisponible(nombre,disponible);}
 
-    public List<Libro> encontrarTodos() {
-        return repo.findAll();
-    }
+    public List<Libro> encontrarTodos() {return repo.findAll();}
+
     public List<LibroDTO> encontrarTodosDTO(){
         return repo.findAll()
                 .stream()
@@ -34,8 +31,7 @@ public class LibroService {
                         libro.getAutor().getNombre(),
                         libro.isDisponible()
                 ))
-                .toList();
-    }
+                .toList();}
 
     public Libro encontrarPorId(Long id) {
         return repo.findById(id)
@@ -43,7 +39,7 @@ public class LibroService {
     }
 
     public Libro guardar(Libro libro) {
-        if (!repo.existsByTitulo(libro.getTitulo())){
+        if (repo.existsByTitulo(libro.getTitulo())){
             throw new RuntimeException("Ta existe un recurso con este título");
         }
         return repo.save(libro);
