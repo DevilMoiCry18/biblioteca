@@ -53,6 +53,15 @@ public class LibroService {
                 )).toList();
     }
 
+    private LibroDTO mapToDTO(Libro libro) {
+        return new LibroDTO(
+                libro.getId(),
+                libro.getTitulo(),
+                libro.getAutor() != null ? libro.getAutor().getNombre() : null,
+                libro.isDisponible()
+        );
+    }
+
     @Transactional
     public static void guardarEnLote(List<Libro> libros) {
         for (Libro libro : libros) {
@@ -65,6 +74,27 @@ public class LibroService {
             if ("ERROR".equalsIgnoreCase(libro.getTitulo())) {
                 throw new RuntimeException("Título prohibido detectado");
             }
+            repo.save(libro);
+        }
+    }
+
+    @Transactional
+    public static void guardarEnLoteDTO(List<LibroDTO> librosDTO) {
+        for (LibroDTO dto : librosDTO) {
+            if (dto.getTitulo() == null || dto.getTitulo().isBlank()) {
+                throw new RuntimeException("El título está vacío");
+            }
+            if ("ERROR".equalsIgnoreCase(dto.getTitulo())) {
+                throw new RuntimeException("Título prohibido detectado");
+            }
+            if (repo.existsByTitulo(dto.getTitulo())) {
+                throw new RuntimeException("Ya existe un Libro con ese Título");
+            }
+            Libro libro = new Libro(
+                    dto.getTitulo(),
+                    null,
+                    dto.isDisponible()
+            );
             repo.save(libro);
         }
     }

@@ -1,5 +1,6 @@
 package com.example.biblioteca.controller;
 
+import com.example.biblioteca.dto.LibroDTO;
 import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.service.LibroService;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,13 @@ public class LibroController {
         return libroService.encontrarTodos();
     }
 
+    @GetMapping("/dto")
+    public ResponseEntity<List<LibroDTO>> obtenerLibrosDTO(
+            @RequestParam(required = false) String autor,
+            @RequestParam(required = false) Boolean disponible) {
+        return ResponseEntity.ok(libroService.encontrarTodosDTO());
+    }
+
     @PostMapping("/lote")
     public ResponseEntity<String> crearLibrosEnLote(@RequestBody List<Libro> libros) {
         try {
@@ -37,6 +45,12 @@ public class LibroController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/lote-dto")
+    public ResponseEntity<Void> crearLibrosEnLoteDTO(@RequestBody List<LibroDTO> librosDTO) {
+        libroService.guardarEnLoteDTO(librosDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/lote-prestamos")
