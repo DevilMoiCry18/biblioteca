@@ -39,6 +39,16 @@ public class LibroController {
         }
     }
 
+    @PostMapping("/lote-prestamos")
+    public ResponseEntity<String> crearLibrosYPrestamos(@RequestBody List<Libro> libros) {
+        try {
+            libroService.guardarLibrosYPrestamos(libros);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id) {
         try {

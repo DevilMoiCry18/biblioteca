@@ -2,18 +2,23 @@ package com.example.biblioteca.service;
 
 import com.example.biblioteca.dto.LibroDTO;
 import com.example.biblioteca.model.Libro;
+import com.example.biblioteca.model.Prestamo;
 import com.example.biblioteca.repository.LibroRepository;
+import com.example.biblioteca.repository.PrestamoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class LibroService {
     private static LibroRepository repo;
+    private static PrestamoRepository prestamoRepo;
 
-    public LibroService(LibroRepository repo) {
+    public LibroService(LibroRepository repo, PrestamoRepository prestamoRepo) {
         this.repo = repo;
+        this.prestamoRepo = prestamoRepo;
     }
 
     public List<Libro> encontrarPorDisponible(boolean disponible) {
@@ -61,6 +66,25 @@ public class LibroService {
                 throw new RuntimeException("Título prohibido detectado");
             }
             repo.save(libro);
+        }
+    }
+
+    @Transactional
+    public void guardarLibrosYPrestamos(List<Libro> libros) {
+        for (Libro libro : libros) {
+            if (libro.getTitulo() == null || libro.getTitulo().isBlank()) {
+                throw new RuntimeException("El título está vacío");
+            }
+            if (repo.existsByTitulo(libro.getTitulo())) {
+                throw new RuntimeException("Ya existe un Libro con ese Título");
+            }
+            if ("ERROR".equalsIgnoreCase(libro.getTitulo())) {
+                throw new RuntimeException("Título prohibido detectado");
+            }
+            repo.save(libro);
+
+            Prestamo prestamo = new Prestamo(libro, LocalDate.now());
+            prestamoRepo.save(prestamo);
         }
     }
 }
