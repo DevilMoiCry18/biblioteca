@@ -36,4 +36,13 @@ public class LibroController {
         libroService.guardarEnLote(libros);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id){
+        try{
+            return ResponseEntity.ok(libroService.encontrarPorId(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
