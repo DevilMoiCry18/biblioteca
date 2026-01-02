@@ -7,8 +7,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LibroRepository extends JpaRepository<Libro,Long> {
+public interface LibroRepository extends JpaRepository<Libro, Long> {
+
+    List<Libro> findByTitulo(String titulo);
+
+    boolean existsByTitulo(String titulo);
 
     List<Libro> findByDisponible(boolean disponible);
+
     List<Libro> findByAutorNombre(String nombre);
-    List<Libro> findByAutorNombreAndDisponible(String nombre, boolean disponible);}
+
+    List<Libro> findByAutorNombreAndDisponible(String nombre, boolean disponible);
+}

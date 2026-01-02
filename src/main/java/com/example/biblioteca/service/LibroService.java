@@ -54,6 +54,9 @@ public class LibroService {
             if (libro.getTitulo() == null || libro.getTitulo().isBlank()) {
                 throw new RuntimeException("El título está vacío");
             }
+            if (repo.existsByTitulo(libro.getTitulo())) {
+                throw new RuntimeException("Ya existe un Libro con ese Título");
+            }
             if ("ERROR".equalsIgnoreCase(libro.getTitulo())) {
                 throw new RuntimeException("Título prohibido detectado");
             }
