@@ -21,29 +21,4 @@ public class LibroService {
         return repo.findAll();
     }
 
-    public Libro encontrarPorId(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-    }
-
-    public Libro guardar(Libro libro) {
-        return repo.save(libro);
-    }
-
-    public Libro actualizar(Long id, Libro libroActualizado) {
-        Libro libroExistente = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-        libroExistente.setTitulo(libroActualizado.getTitulo());
-        libroExistente.setAutor(libroActualizado.getAutor());
-        libroExistente.setDisponible(libroActualizado.isDisponible());
-        return repo.save(libroExistente);
-    }
-
-    public void eliminar(Long id) {
-        if (!repo.existsById(id)) {
-            throw new RuntimeException("Libro no encontrado");
-        }
-        repo.deleteById(id);
-    }
-
 }
