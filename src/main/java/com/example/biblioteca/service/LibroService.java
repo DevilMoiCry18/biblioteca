@@ -55,6 +55,15 @@ public class LibroService {
                 )).toList();
     }
 
+    private static void validarLibro(Libro libro) {
+        if (libro.getTitulo() == null || libro.getTitulo().isBlank()) {
+            throw new IllegalArgumentException("El título es obligatorio");
+        }
+        if (libro.getAutor() == null) {
+            throw new IllegalArgumentException("El autor es obligatorio");
+        }
+    }
+
     private LibroDTO mapToDTO(Libro libro) {
         return new LibroDTO(
                 libro.getId(),
@@ -76,6 +85,7 @@ public class LibroService {
             if ("ERROR".equalsIgnoreCase(libro.getTitulo())) {
                 throw new RuntimeException("Título prohibido detectado");
             }
+            validarLibro(libro);
             repo.save(libro);
         }
     }
@@ -97,6 +107,7 @@ public class LibroService {
                     null,
                     dto.isDisponible()
             );
+            validarLibro(libro);
             repo.save(libro);
         }
     }
