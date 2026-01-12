@@ -1,6 +1,7 @@
 package com.example.biblioteca.service;
 
 import com.example.biblioteca.dto.LibroDTO;
+import com.example.biblioteca.exception.RecursoNoEncontradoException;
 import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.model.Prestamo;
 import com.example.biblioteca.repository.LibroRepository;
@@ -35,7 +36,8 @@ public class LibroService {
 
     public Libro encontrarPorId(Long id) {
         return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+                .orElseThrow(() ->
+                        new RecursoNoEncontradoException("Libro no con id " + id));
     }
 
     public List<Libro> encontrarTodos() {
