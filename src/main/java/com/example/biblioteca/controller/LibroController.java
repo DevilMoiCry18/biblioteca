@@ -1,6 +1,7 @@
 package com.example.biblioteca.controller;
 
 import com.example.biblioteca.dto.LibroDTO;
+import com.example.biblioteca.exception.RecursoNoEncontradoException;
 import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.service.LibroService;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,7 @@ public class LibroController {
     public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(libroService.encontrarPorId(id));
-        } catch (RuntimeException e) {
+        } catch (RecursoNoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
