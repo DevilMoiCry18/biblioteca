@@ -91,6 +91,11 @@ public class LibroService {
     }
 
     @Transactional
+    public static void guardarEnLoteDirecto(List<Libro> libros) {
+        repo.saveAll(libros);
+    }
+
+    @Transactional
     public static void guardarEnLoteDTO(List<LibroDTO> librosDTO) {
         for (LibroDTO dto : librosDTO) {
             if (dto.getTitulo() == null || dto.getTitulo().isBlank()) {
