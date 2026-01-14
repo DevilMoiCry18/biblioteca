@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/libros")
@@ -37,6 +38,11 @@ public class LibroController {
         return ResponseEntity.ok(libroService.encontrarTodosDTO());
     }
 
+    @GetMapping("/{id}")
+    public Libro obtenerLibroPorId(@PathVariable Long id) {
+        return libroService.encontrarPorId(id);
+    }
+
     @PostMapping("/lote")
     public ResponseEntity<String> crearLibrosEnLote(@RequestBody List<Libro> libros) {
         try {
@@ -63,8 +69,8 @@ public class LibroController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Libro obtenerLibroPorId(@PathVariable Long id) {
-        return libroService.encontrarPorId(id);
+    @PatchMapping("/{id}")
+    public Libro patchFN(@PathVariable Long id, @RequestBody Map<String, Object> update){
+        return libroService.updateLibroByFields(id,update);
     }
 }

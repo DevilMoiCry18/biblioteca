@@ -8,13 +8,18 @@ import com.example.biblioteca.repository.LibroRepository;
 import com.example.biblioteca.repository.PrestamoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class LibroService {
-    private static LibroRepository repo;
+    public static LibroRepository repo;
     private static PrestamoRepository prestamoRepo;
 
     public LibroService(LibroRepository repo, PrestamoRepository prestamoRepo) {
@@ -34,7 +39,7 @@ public class LibroService {
         return repo.findByAutorNombreAndDisponible(nombre, disponible);
     }
 
-    public Libro encontrarPorId(Long id) {
+    public static Libro encontrarPorId(Long id) {
         return repo.findById(id)
                 .orElseThrow(() ->
                         new RecursoNoEncontradoException("Libro no con id " + id));
@@ -134,5 +139,19 @@ public class LibroService {
             Prestamo prestamo = new Prestamo(libro, LocalDate.now());
             prestamoRepo.save(prestamo);
         }
+    }
+
+    public Libro updateLibroByFields(Long id, Map<String, Object> fields) {
+        Optional<Libro> libroExistente = repo.findById(id).get();
+
+        if(libroExistente.isPresent()){
+        fields.forEach((key,value)->{
+            Field field = ReflectionUtils.findField(Libro.class,key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field,libroExistente,value);
+        });
+            return repo.save(libroExistente.get());
+        }
+        return null;
     }
 }
