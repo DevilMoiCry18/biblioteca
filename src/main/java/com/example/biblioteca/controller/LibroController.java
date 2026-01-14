@@ -37,6 +37,16 @@ public class LibroController {
         return ResponseEntity.ok(libroService.encontrarTodosDTO());
     }
 
+    @GetMapping("/{id}")
+    public Libro obtenerLibroPorId(@PathVariable Long id) {
+        return libroService.encontrarPorId(id);
+    }
+
+    @GetMapping("/conteo-libros/{id}")
+    public Long obtenerConteoLibros(@PathVariable Long id){
+        return libroService.getIdCount(id);
+    }
+
     @PostMapping("/lote")
     public ResponseEntity<String> crearLibrosEnLote(@RequestBody List<Libro> libros) {
         try {
@@ -61,10 +71,5 @@ public class LibroController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
-    }
-
-    @GetMapping("/{id}")
-    public Libro obtenerLibroPorId(@PathVariable Long id) {
-        return libroService.encontrarPorId(id);
     }
 }

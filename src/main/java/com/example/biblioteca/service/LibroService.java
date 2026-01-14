@@ -44,6 +44,10 @@ public class LibroService {
         return repo.findAll();
     }
 
+    public Long getIdCount(Long id){
+        return repo.countByLibroId(id);
+    }
+
     public List<LibroDTO> encontrarTodosDTO() {
         return repo.findAll()
                 .stream()
