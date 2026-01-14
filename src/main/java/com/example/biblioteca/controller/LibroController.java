@@ -70,7 +70,7 @@ public class LibroController {
     }
 
     @PatchMapping("/{id}")
-    public Libro patchFN(@PathVariable Long id, @RequestBody Map<String, Object> update){
+    public Libro patchUpdate(@PathVariable Long id, @RequestBody Map<String, Object> update){
         return libroService.updateLibroByFields(id,update);
     }
 }

@@ -141,8 +141,9 @@ public class LibroService {
         }
     }
 
+    @Transactional
     public Libro updateLibroByFields(Long id, Map<String, Object> fields) {
-        Optional<Libro> libroExistente = repo.findById(id).get();
+        Optional<Libro> libroExistente = repo.findById(id);
 
         if(libroExistente.isPresent()){
         fields.forEach((key,value)->{
