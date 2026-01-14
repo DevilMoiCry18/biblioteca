@@ -42,10 +42,10 @@ public class LibroController {
         return libroService.encontrarPorId(id);
     }
 
-    @GetMapping("/conteo-libros/{id}")
-    public Long obtenerConteoLibros(@PathVariable Long id){
-        return libroService.getIdCount(id);
-    }
+    //@GetMapping("/conteo-libros/{id}")
+    //public Long obtenerConteoLibros(@PathVariable Long id){
+       // return libroService.getIdCount(id);
+    //}
 
     @PostMapping("/lote")
     public ResponseEntity<String> crearLibrosEnLote(@RequestBody List<Libro> libros) {

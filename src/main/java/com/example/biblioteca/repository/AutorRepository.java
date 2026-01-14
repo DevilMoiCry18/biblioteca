@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     List<Autor> findByNombre(String nombre);
+
+//    Long countByAutorId(Long libroId);
+
 }

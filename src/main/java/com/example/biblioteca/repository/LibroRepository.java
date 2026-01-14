@@ -17,7 +17,5 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     List<Libro> findByAutorNombre(String nombre);
 
-    Long countByLibroId(Long libroId);
-
     List<Libro> findByAutorNombreAndDisponible(String nombre, boolean disponible);
 }

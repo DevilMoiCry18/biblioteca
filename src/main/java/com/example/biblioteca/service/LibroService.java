@@ -4,6 +4,7 @@ import com.example.biblioteca.dto.LibroDTO;
 import com.example.biblioteca.exception.RecursoNoEncontradoException;
 import com.example.biblioteca.model.Libro;
 import com.example.biblioteca.model.Prestamo;
+import com.example.biblioteca.repository.AutorRepository;
 import com.example.biblioteca.repository.LibroRepository;
 import com.example.biblioteca.repository.PrestamoRepository;
 import jakarta.transaction.Transactional;
@@ -16,10 +17,12 @@ import java.util.List;
 public class LibroService {
     private static LibroRepository repo;
     private static PrestamoRepository prestamoRepo;
+    private static AutorRepository autorRepo;
 
-    public LibroService(LibroRepository repo, PrestamoRepository prestamoRepo) {
+    public LibroService(LibroRepository repo, PrestamoRepository prestamoRepo, AutorRepository autorRepo) {
         this.repo = repo;
         this.prestamoRepo = prestamoRepo;
+        this.autorRepo = autorRepo;
     }
 
     public List<Libro> encontrarPorDisponible(boolean disponible) {
@@ -44,9 +47,9 @@ public class LibroService {
         return repo.findAll();
     }
 
-    public Long getIdCount(Long id){
-        return repo.countByLibroId(id);
-    }
+  //  public Long getIdCount(Long id){
+    //    return autorRepo.countByAutorId(id);
+    //}
 
     public List<LibroDTO> encontrarTodosDTO() {
         return repo.findAll()
